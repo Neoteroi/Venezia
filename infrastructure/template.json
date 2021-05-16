@@ -163,7 +163,7 @@
     "appServicePlanName": "[concat(parameters('environment'), '-app-service-', parameters('projectName'))]",
     "storageAccountName": "[replace(concat(variables('projectName'),'stacc'), '-', '')]",
     "appInsName": "[concat(variables('projectName'),'-appins')]",
-    "databaseName": "torino",
+    "databaseName": "[parameters('projectName')]",
     "serverName": "[concat(variables('projectName'), 'pg')]"
   },
   "resources": [
