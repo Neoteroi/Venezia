@@ -16,6 +16,9 @@ on:
     paths:
       - "server/**"
 
+env:
+  PROJECT_NAME: venezia
+
 jobs:
   build-app:
     runs-on: ubuntu-18.04
