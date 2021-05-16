@@ -26,7 +26,7 @@ defaults:
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
-    # if: ${{ github.event.inputs.deploy_to_dev }} == 'true'  # TODO
+    if: ${{ github.event.inputs.deploy_to_dev }} == 'true' || github.ref == 'refs/heads/dev'
     env:
       ENV_NAME: dev
     steps:
