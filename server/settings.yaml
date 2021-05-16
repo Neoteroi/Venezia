@@ -1,0 +1,25 @@
+# Default application settings, to run the application for local development.
+#
+# These settings are read in `app.configuration.py` and can be overridden by environmental variables,
+# thanks to `roconfiguration` package.
+# Refer to https://github.com/RobertoPrevato/roconfiguration for more information.
+#
+app_name: "Venezia"
+
+# Note: the following settings are for a PostgreSQL Server running on the local server
+# TODO: provide an example for Azure Database
+postgres_db: "venezia"
+
+postgres_user: "postgres"
+
+postgres_password: "postgres"
+
+postgres_host: "localhost"
+
+debug: true # if true, Jinja2 templates auto reloading is enabled
+
+show_error_details: true
+
+# Replace the following with the Application Insights' instrumentation key
+# from your DEV environment, so you can see telemetries collected also when developing locally
+monitoring_key: "00000000-0000-0000-0000-000000000000"
