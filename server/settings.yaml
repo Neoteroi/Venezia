@@ -4,6 +4,9 @@
 # thanks to `roconfiguration` package.
 # Refer to https://github.com/RobertoPrevato/roconfiguration for more information.
 #
+# The ARM templates provided with the project template configure properly the application
+# settings, so nothing more needs to be done here.
+#
 app_name: "Venezia"
 
 # Note: the following settings are for a PostgreSQL Server running on the local server
