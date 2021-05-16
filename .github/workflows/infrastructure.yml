@@ -10,6 +10,7 @@ on:
 
 env:
   PROJECT_NAME: venezia
+  RG_LOCATION: westeurope
 
 defaults:
   run:
@@ -18,7 +19,9 @@ defaults:
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.deploy_to_dev }} == 'true'
+    # if: ${{ github.event.inputs.deploy_to_dev }} == 'true'  # TODO
+    env:
+      ENV_NAME: dev
     steps:
       - uses: actions/checkout@main
 
@@ -26,12 +29,24 @@ jobs:
         with:
           creds: ${{ secrets.DEV_AZURE_CREDENTIALS }}
 
+      - uses: Azure/CLI@v1
+        with:
+          inlineScript: |
+            #!/bin/bash
+            RG="${{ env.ENV_NAME }}-${{ env.PROJECT_NAME }}-rg"
+            if $(az group exists --name $RG) ; then
+              echo "Azure resource group already exists, skipping creation..."
+            else
+              az group create --name $RG --location ${{ env.RG_LOCATION }}
+              echo "Azure resource group created"
+            fi
+
       - name: Run ARM deploy
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.DEV_AZURE_SUBSCRIPTION }}
-          resourceGroupName: dev-${{ env.PROJECT_NAME }}-rg
+          resourceGroupName: ${{ env.ENV_NAME }}-${{ env.PROJECT_NAME }}-rg
           template: ./infrastructure/template.json
-          parameters: ./infrastructure/parameters.dev.json projectName=${{ env.PROJECT_NAME }} dbAdministratorLoginPassword=${{ env.DB_PASS }}
+          parameters: ./infrastructure/parameters.${{ env.ENV_NAME }}.json projectName=${{ env.PROJECT_NAME }} dbAdministratorLoginPassword=${{ env.DB_PASS }}
         env:
           DB_PASS: ${{ secrets.DEV_DBSA_PASSWORD }}
