@@ -46,3 +46,8 @@ For development:
 The following pages describe in detail the steps listed above:
 
 * [Configuring CI/CD with GitHub Actions](./docs/configuring-github-actions.md)
+
+---
+
+# Work in progress...
+This project is still a work in progress.
