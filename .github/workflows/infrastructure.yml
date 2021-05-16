@@ -1,6 +1,13 @@
 name: Deploy infrastructure
 
 on:
+  push:
+    branches:
+      - dev
+      - test
+      - main
+    paths:
+      - "server/**"
   workflow_dispatch:
     inputs:
       deploy_to_dev:
